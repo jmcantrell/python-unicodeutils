@@ -3,21 +3,20 @@ from StringIO import StringIO
 
 ENCODING = 'utf-8'
 
-def encode(value, encoding=None):
+def recode(value, src, dst, encoding=None):
     if not encoding: encoding = ENCODING
-    if value is None: return ''
-    if isinstance(value, str): return value
-    if is_list(value): return [encode(v, encoding) for v in value]
-    if not isinstance(value, unicode): value = unicode(value)
-    return value.encode(encoding)
+    if value is None: return dst()
+    if isinstance(value, dst): return value
+    if is_list(value): return list(dst(v, encoding) for v in value)
+    if is_dict(value): return dict((dst(k), dst(v)) for k, v in value.items())
+    if not isinstance(value, src): value = src(value)
+    return dst(value, encoding=encoding)
+
+def encode(value, encoding=None):
+    return recode(value, unicode, str, encoding)
 
 def decode(value, encoding=None):
-    if not encoding: encoding = ENCODING
-    if value is None: return u''
-    if isinstance(value, unicode): return value
-    if is_list(value): return [decode(v, encoding) for v in value]
-    if not isinstance(value, str): value = str(value)
-    return unicode(value, encoding=encoding)
+    return recode(value, str, unicode, encoding)
 
 def strip_non_word(value, replace=None, allowed=''):
     if replace is None: replace = u'_'
@@ -53,15 +52,10 @@ def sanitize(value):
     return squeeze(normalize_symbols(normalize(strip_non_word(value))).lower().replace(' ', '_'), '_')
 
 def is_list(value):
-    """Test if value is a list or tuple.
-    >>> is_list('foo')
-    False
-    >>> is_list(('this', 'is', 'a', 'tuple'))
-    True
-    >>> is_list(['this', 'is', 'a', 'list'])
-    True
-    """
     return isinstance(value, (list, tuple))
+
+def is_dict(value):
+    return isinstance(value, dict)
 
 def listify(value):
     """Ensure that the value is a list.

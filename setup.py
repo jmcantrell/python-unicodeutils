@@ -5,7 +5,7 @@ from glob import glob
 
 setup(
         name='UnicodeUtils',
-        version='0.2',
+        version='0.3',
         description='Various small utilities for working with unicode strings.',
         author='Jeremy Cantrell',
         author_email='jmcantrell@gmail.com',
