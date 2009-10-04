@@ -58,10 +58,4 @@ def is_dict(value):
     return isinstance(value, dict)
 
 def listify(value):
-    """Ensure that the value is a list.
-    >>> listify('foo')
-    ['foo']
-    >>> listify(['foo', 'bar'])
-    ['foo', 'bar']
-    """
     return value if is_list(value) else [value]
