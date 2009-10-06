@@ -7,17 +7,17 @@ def encode(value, encoding=None):
     if not encoding: encoding = ENCODING
     if value is None: return ''
     if isinstance(value, str): return value
-    if is_list(value): return list(str(v, encoding) for v in value)
-    if is_dict(value): return dict((str(k), str(v)) for k, v in value.items())
+    if is_list(value): return list(encode(v) for v in value)
+    if is_dict(value): return dict((encode(k), encode(v)) for k, v in value.items())
     if not isinstance(value, unicode): value = unicode(value)
-    return str(value)
+    return value.encode(encoding)
 
 def decode(value, encoding=None):
     if not encoding: encoding = ENCODING
     if value is None: return u''
     if isinstance(value, unicode): return value
-    if is_list(value): return list(unicode(v, encoding) for v in value)
-    if is_dict(value): return dict((unicode(k), unicode(v)) for k, v in value.items())
+    if is_list(value): return list(decode(v) for v in value)
+    if is_dict(value): return dict((decode(k), decode(v)) for k, v in value.items())
     if not isinstance(value, str): value = str(value)
     return unicode(value, encoding)
 
