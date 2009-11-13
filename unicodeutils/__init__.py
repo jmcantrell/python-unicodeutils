@@ -1,5 +1,4 @@
-import csv, unicodedata, string
-from StringIO import StringIO
+import unicodedata, string
 
 ENCODING = 'utf-8'
 
@@ -49,7 +48,7 @@ def squeeze(value, s):
     while True:
         if ss not in value_new: break
         value_new = value_new.replace(ss, s)
-    return value_new
+    return value_new.strip(s)
 
 def sanitize(value):
     return squeeze(normalize_symbols(normalize(strip_non_word(value))).lower().replace(' ', '_'), '_')
