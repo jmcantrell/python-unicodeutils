@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
         name='UnicodeUtils',
-        version='0.3.3',
+        version='0.3.4',
         description='Various small utilities for working with unicode strings.',
         author='Jeremy Cantrell',
         author_email='jmcantrell@gmail.com',
