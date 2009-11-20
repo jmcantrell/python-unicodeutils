@@ -18,9 +18,9 @@ def encode(value, encoding=ENCODING): #{{{1
     # If already a string, no need to encode
     if isinstance(value, str): return value
     # If list/tuple, recursively encode
-    if is_list(value): return list(encode(v) for v in value)
+    if is_list(value): return list(encode(v, encoding) for v in value)
     # If dict, recursively encode keys and values
-    if is_dict(value): return dict((encode(k), encode(v)) for k, v in value.items())
+    if is_dict(value): return dict((encode(k, encoding), encode(v, encoding)) for k, v in value.items())
     # Make absolutely sure that value is unicode
     if not isinstance(value, unicode): value = unicode(value)
     return value.encode(encoding)
@@ -41,9 +41,9 @@ def decode(value, encoding=ENCODING): #{{{1
     # If already unicode, no need to decode
     if isinstance(value, unicode): return value
     # If list/tuple, recursively decode
-    if is_list(value): return list(decode(v) for v in value)
+    if is_list(value): return list(decode(v, encoding) for v in value)
     # If dict, recursively decode keys and values
-    if is_dict(value): return dict((decode(k), decode(v)) for k, v in value.items())
+    if is_dict(value): return dict((decode(k, encoding), decode(v, encoding)) for k, v in value.items())
     # Make absolutely sure that value is a string
     if not isinstance(value, str): value = str(value)
     return unicode(value, encoding)
