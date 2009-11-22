@@ -1,3 +1,6 @@
+Installation
+------------
+
 If you have setuptools installed, you can install UnicodeUtils with:
 
     easy_install UnicodeUtils
