@@ -97,12 +97,14 @@ def squeeze(value, s=' '): #{{{1
         value_new = value_new.replace(ss, s)
     return value_new.strip(s)
 
-def sanitize(value): #{{{1
+def sanitize(value, allowed=None): #{{{1
     """Produce a super-safe version of a string.
     >>> sanitize(u' F\xf6\xf6.bar  baz.  ')
     u'foo_bar_baz'
     """
-    return squeeze(normalize_symbols(strip_non_word(normalize(value.replace('.', ' ')))).lower().replace(' ', '_'), '_')
+    return squeeze(normalize_symbols(strip_non_word(
+        normalize(value.replace('.', ' ')), allowed=allowed
+        )).lower().replace(' ', '_'), '_')
 
 def is_list(value): #{{{1
     return isinstance(value, (list, tuple))
