@@ -102,9 +102,11 @@ def sanitize(value, allowed=None): #{{{1
     >>> sanitize(u' F\xf6\xf6.bar  baz.  ')
     u'foo_bar_baz'
     """
-    return squeeze(normalize_symbols(strip_non_word(
-        normalize(value.replace('.', ' ')), allowed=allowed
-        )).lower().replace(' ', '_'), '_')
+    value = value.replace('"', '')
+    value = value.replace("'", "")
+    return squeeze(strip_non_word(normalize_symbols(
+        normalize(value.replace('.', ' '))), allowed=allowed
+        ).lower().replace(' ', '_'), '_')
 
 def is_list(value): #{{{1
     return isinstance(value, (list, tuple))
