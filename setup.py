@@ -15,7 +15,7 @@ setup(
             'Natural Language :: English',
             'Programming Language :: Python',
             ],
-        packages=[
+        py_modules=[
             'unicodeutils',
             ],
         )
