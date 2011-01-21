@@ -1,9 +1,9 @@
 Installation
 ------------
 
-If you have setuptools installed, you can install UnicodeUtils with:
+You should install UnicodeUtils with pip:
 
-    easy_install UnicodeUtils
+    pip install UnicodeUtils
 
 Otherwise, you'll have to download the package and run:
 
